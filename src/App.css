@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+body *{
+    border-radius: 10px;
+    margin: 5px;
+}
+.App{
+    display: flex;
+    flex-direction: row;
+}
+.tasks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    max-width: 70%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+.list-name{
+    width: 100%;
+    margin-left: 40%;
+}
+.todo-list-sidebar{
+    border: 2px solid rgb(255, 189, 103);
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.todo-list-sidebar button{
+    min-width: 80px;
+    margin: 4px;
+    border: none;
+    background-color: rgb(163, 214, 130);
+}
+.todo-list-sidebar .selected-list-button{
+    border: 2px solid rgb(240, 139, 23);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.item {
+    border: 2px solid rgb(255, 189, 103);
+    max-width: 320px;
+    min-width: 260px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.description {
+    color: rgb(98, 105, 165);
+    font-size: 90%;
+    margin-left: 25px;
+    margin-right: 5px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button-delete {
+    float: right;
+    margin-right: 15px;
+    border: none;
+    background-color: rgb(185, 185, 185);
+    padding: 4px 8px;
 }
-
-.App-link {
-  color: #61dafb;
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    margin-top: 20px;
+    background-color: rgb(240, 230, 184);
+    padding: 8px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form button{
+    margin-top: 10px;
+    background-color: rgb(151, 253, 83);
+    border: none;
+    padding: 10px 0px;
+    color: aliceblue;
+    font-size: 120%;
+}
+form input{
+    margin: 6px 0px;
+    border-style: solid;
+    border-color: rgb(255, 189, 103);
 }
