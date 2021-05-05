@@ -6,11 +6,10 @@ const useForm = (...fields) => (
     })
 
 export default function NewTaskForm(props) {
-    const id = useTextField('','id');
     const title = useTextField('','title');
     const dueDate = useTextField('','dueDate');
     const description = useTextField('','description');
-    const form = useForm(id,title,dueDate,description)
+    const form = useForm(title,dueDate,description)
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -29,7 +28,7 @@ export default function NewTaskForm(props) {
     }
 
     const createdTask = () => {
-        return { id: id.value, title: title.value, done: false, description: description.value, dueDate: dueDate.value };
+        return { title: title.value, done: false, description: description.value, dueDate: dueDate.value };
     }
 
     return (
