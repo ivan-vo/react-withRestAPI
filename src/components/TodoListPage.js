@@ -11,7 +11,6 @@ export default function TodoListPage(props) {
             .then(res => res.json())
             .then(setTasks)
     }, [id])
-
     const addTask = (task) => {
         setTasks([...tasks, task]);
         fetch(`http://localhost:5000/lists/${id}/tasks`, {
@@ -22,38 +21,19 @@ export default function TodoListPage(props) {
             body: JSON.stringify(task)
         })
     }
-
     const removeTask = (task) => {
-        fetch(`http://localhost:5000/lists/${id}/tasks/${task.itemId}`, {
-            method: 'DELETE',
-        })
         setTasks(tasks.filter(t => t.itemId !== task.itemId));
     }
-
-    function getItemById(id) {
-        return fetch(`http://localhost:5000/tasks/${id}`,)
-            .then(response => response.json());
-    }
-    async function replaceTask (oldtask, task){
-        console.log("replace");
-        let putItem = await getItemById(task.itemId);
-        await fetch(`http://localhost:5000/lists/tasks/${task.itemId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify(task)
-        })
+    const setCheckbox = (task, oldtask) => {
         let list = tasks;
         let index = list.indexOf(oldtask);
         list[index] = task;
-        setTasks([ ...list ])
+        setTasks([...list])
     }
-
     return (
         <div>
             {
-                tasks.map(task => (<Task key={task.itemId} task={task} setDone={replaceTask} onClick={removeTask}></Task>))
+                tasks.map(task => (<Task key={task.itemId} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
             }
             <NewTaskForm onSubmit={addTask} />
         </div>
