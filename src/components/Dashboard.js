@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Link
+    NavLink
 } from "react-router-dom";
 
 export default function Dashboard(props) {
@@ -13,12 +13,12 @@ export default function Dashboard(props) {
                         {
                             props.taskLists.map(
                                 taskList => (
-                                    <li key={taskList.taskListId}><Link to={`/todo-lists/${taskList.taskListId}`}>{taskList.name}</Link></li>
+                                    <li key={taskList.taskListId}><NavLink activeClassName="activ-link" to={`/todo-lists/${taskList.taskListId}`}>{taskList.name}</NavLink></li>
                                 )
                             )
                         }
                         <li>
-                            <Link to="/today">TodayTaskPage</Link>
+                            <NavLink to="/today" activeClassName="activ-link">TodayTaskPage</NavLink>
                         </li>
                     </ul>
                 </nav>

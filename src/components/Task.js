@@ -1,7 +1,7 @@
 import React from 'react'
 
 function dateToString(date) {
-    if (date !== '') {
+    if (date !== '' && date !== null) {
         date = new Date(date);
         date = date.toString().split(' ');
         return `[${date[0]} : ${date[1]} : ${date[2]}]`;

@@ -15,18 +15,12 @@ import TodoListPage from './components/TodoListPage';
 import TodayTaskPage from './components/TodayTaskPage';
 
 function App() {
-
   const [taskLists, setTaskLists] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/tasklists")
       .then(res => res.json())
       .then(setTaskLists);
   }, [])
-
-  const addTask = (task) => {
-    
-  }
-
 
   return (
     <div className="App">
@@ -41,7 +35,6 @@ function App() {
               <TodayTaskPage />
             </Route>
           </Switch>
-          <NewTaskForm onSubmit={addTask} />
         </div>
       </Router>
     </div >
