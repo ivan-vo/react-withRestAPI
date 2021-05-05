@@ -2,26 +2,28 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import NewTaskForm from './components/NewTaskForm';
-import Task from './components/Task';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+  useParams
+} from "react-router-dom";
+
+import TodoListPage from './components/TodoListPage';
+import TodayTaskPage from './components/TodayTaskPage';
 
 function App() {
 
-  const [allTask, setAllTasks] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/tasks")
-      .then(res => res.json())
-      .then(res => setAllTasks(res))
-  }, [])
-
   const [taskLists, setTaskLists] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/tasklists")
       .then(res => res.json())
-      .then(res => setTaskLists(res))
+      .then(setTaskLists);
   }, [])
-  const [selectedList, setSelectedList] = useState();
-  console.log(taskLists);
-  console.log(selectedList);
+
   const addTask = (task) => {
     let list = selectedList;
     list.tasks.push(task)
@@ -48,19 +50,26 @@ function App() {
 
   const selectTodoList = (list) => {
     setSelectedList(list);
+    console.log(list);
   }
 
   return (
     <div className="App">
-      <Dashboard onSelect={selectTodoList} taskLists={taskLists}/>
-      <div className='tasks'>
-        {/* <h1 className="list-name">{selectedList.name}</h1> */}
-        {
-          allTask.map(task => (<Task setDone={replaceTask} onClick={removeTask} selectedList={} task={task} key={task.id} />))
-        }
-        <NewTaskForm onSubmit={addTask} />
-      </div>
-    </div>
+      <Router>
+        <Dashboard onSelect={selectTodoList} taskLists={taskLists} />
+        <div className='tasks'>
+          <Switch>
+            <Route path="/todo-lists/:id">
+              <TodoListPage selectedListId={selectedList.taskListId}/>
+            </Route>
+            <Route path="/today">
+              <TodayTaskPage />
+            </Route>
+          </Switch>
+          <NewTaskForm onSubmit={addTask} />
+        </div>
+      </Router>
+    </div >
   );
 }
 

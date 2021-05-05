@@ -34,7 +34,6 @@ export default function NewTaskForm(props) {
 
     return (
         <form onSubmit={onSubmitHandler}>
-            <input {...id} type="text" placeholder="id" />
             <input {...title} type="text" placeholder="title" />
             <input {...dueDate} type="date"  placeholder="2021, 2, 20" />
             <input {...description} type="text" placeholder="Description" />
