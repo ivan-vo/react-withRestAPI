@@ -6,7 +6,7 @@ export default function TodoListPage(props) {
     let {id} = useParams()
     const [tasks, setTasks] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/list/${id}`)
+        fetch(`http://localhost:5000/lists/${id}/tasks`)
             .then(res => res.json())
             .then(setTasks)
     }, [id])
