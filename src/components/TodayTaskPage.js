@@ -21,7 +21,7 @@ export default function TodayTaskPage(props) {
         <>
             <h1>TodayTaskPage!!!</h1>
             {
-                tasks.map(task => (<Task taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} key={task.id} task={task}></Task>))
+                tasks.map(task => (<Task key={task.itemId} taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
             }
         </>
     )

@@ -72,7 +72,7 @@ export default function Task(props) {
     return (
         <div className='item'>
             {
-                props.today ? <p><NavLink to={`/todo-lists/${props.task.taskListId}`}>{nameList}</NavLink></p>:''
+                props.today ? <p key={props.task.taskListId} ><NavLink to={`/todo-lists/${props.task.taskListId}`}>{nameList}</NavLink></p>:<></>
             }
             <p>
                 <input
