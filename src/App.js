@@ -32,7 +32,7 @@ function App() {
               <TodoListPage />
             </Route>
             <Route path="/today">
-              <TodayTaskPage />
+              <TodayTaskPage taskLists={taskLists}/>
             </Route>
           </Switch>
         </div>

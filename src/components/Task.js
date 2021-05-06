@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { NavLink } from "react-router-dom";
 
 function dateToString(date) {
     if (date !== '' && date !== null) {
@@ -22,6 +23,18 @@ export default function Task(props) {
         task.done ? task.done = false : task.done = true;
         replaceTask(oldtask, task)
     }
+    const getClassByDate = (date) => {
+        if (date !== '' && date !== null) {
+            date = new Date(date);
+            var now = new Date();
+            if (new Date(now.getFullYear(), now.getMonth(), now.getDate()) > date) {
+                return { className: "not-corect-date" }  
+            } 
+        }
+        else{
+            return { className: "corect-date" } 
+        }
+    }
 
     const removeTask = (task) => {
         fetch(`http://localhost:5000/lists/${task.taskListId}/tasks/${task.itemId}`, {
@@ -35,7 +48,6 @@ export default function Task(props) {
             .then(response => response.json());
     }
     async function replaceTask(oldtask, task) {
-        console.log("replace");
         let putItem = await getItemById(task.itemId);
         await fetch(`http://localhost:5000/lists/tasks/${task.itemId}`, {
             method: 'PATCH',
@@ -48,9 +60,20 @@ export default function Task(props) {
     }
 
     const title = props.task.title;
+    let nameList;
+    if (props.today) {
+        props.taskLists.forEach(l => {
+            if (l.taskListId === props.task.taskListId) {
+                nameList = l.name;
+            }
+        });
+    }
 
     return (
         <div className='item'>
+            {
+                props.today ? <p><NavLink to={`/todo-lists/${props.task.taskListId}`}>{nameList}</NavLink></p>:''
+            }
             <p>
                 <input
                     onClick={() => setDoneTask(props.task)}
@@ -58,7 +81,7 @@ export default function Task(props) {
                     checked={setChecked(props.task.done)}
                     readOnly
                 />
-                {title} - {dateToString(props.task.dueDate)}
+                {title} - <span {...getClassByDate(props.task.dueDate)}>{dateToString(props.task.dueDate)}</span>
             </p>
             <p className='description'>{props.task.description}</p>
             <button onClick={() => removeTask(props.task)} className="button-delete">Delete</button>

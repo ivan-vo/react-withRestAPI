@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Task from './Task'
 
-export default function TodayTaskPage() {
+export default function TodayTaskPage(props) {
     const [tasks, setTasks] = useState([])
     useEffect(() => {
         fetch("http://localhost:5000/collection/today")
@@ -21,7 +21,7 @@ export default function TodayTaskPage() {
         <div>
             <h1>TodayTaskPage!!!</h1>
             {
-                tasks.map(task => (<Task setCheckbox={setCheckbox} removeTask={removeTask} key={task.id} task={task}></Task>))
+                tasks.map(task => (<Task taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} key={task.id} task={task}></Task>))
             }
         </div>
     )
