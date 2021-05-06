@@ -18,11 +18,11 @@ export default function TodayTaskPage(props) {
         setTasks([...list])
     }
     return (
-        <div>
+        <>
             <h1>TodayTaskPage!!!</h1>
             {
                 tasks.map(task => (<Task taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} key={task.id} task={task}></Task>))
             }
-        </div>
+        </>
     )
 }

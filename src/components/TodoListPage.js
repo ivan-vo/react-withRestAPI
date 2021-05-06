@@ -31,11 +31,11 @@ export default function TodoListPage(props) {
         setTasks([...list])
     }
     return (
-        <div>
+        <>
             {
                 tasks.map(task => (<Task key={task.itemId} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
             }
             <NewTaskForm onSubmit={addTask} />
-        </div>
+        </>
     )
 }
