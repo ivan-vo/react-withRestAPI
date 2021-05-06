@@ -15,6 +15,10 @@ body *{
     margin: auto;
     flex-wrap: wrap;
 }
+.tasks h1{
+    flex: 100%;
+    margin-left: 10%;
+}
 .not-corect-date{
     color: red;
 }
