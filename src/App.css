@@ -49,6 +49,7 @@ body *{
 
 nav ul{
     list-style-type: none;
+    padding: 0px;
 }
 nav a{
     color: rgb(44, 42, 42);

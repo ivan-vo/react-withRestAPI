@@ -43,12 +43,7 @@ export default function Task(props) {
         props.removeTask(task)
     }
 
-    function getItemById(id) {
-        return fetch(`http://localhost:5000/tasks/${id}`,)
-            .then(response => response.json());
-    }
     async function replaceTask(oldtask, task) {
-        let putItem = await getItemById(task.itemId);
         await fetch(`http://localhost:5000/lists/tasks/${task.itemId}`, {
             method: 'PATCH',
             headers: {
@@ -60,6 +55,7 @@ export default function Task(props) {
     }
 
     const title = props.task.title;
+    
     let nameList;
     if (props.today) {
         props.taskLists.forEach(l => {

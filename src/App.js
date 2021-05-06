@@ -1,30 +1,35 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
-import NewTaskForm from './components/NewTaskForm';
+import TodoListPage from './components/TodoListPage';
+import TodayTaskPage from './components/TodayTaskPage';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  NavLink,
-  useParams
+  Route
 } from "react-router-dom";
 
-import TodoListPage from './components/TodoListPage';
-import TodayTaskPage from './components/TodayTaskPage';
+import store from './store/index';
+import { useDispatch } from 'react-redux';
+import {loadLists} from './store/dashboard/actions';
 
+console.log(store.getState());
 function App() {
+
   const [taskLists, setTaskLists] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/tasklists")
       .then(res => res.json())
       .then(setTaskLists);
   }, [])
+  const dispatch = useDispatch();
+  // dispatch(loadLists())
+  
 
   return (
     <div className="App">
       <Router>
+        {/* <Dashboard taskLists={store.getState().dashboard.lists} /> */}
         <Dashboard taskLists={taskLists} />
         <div className='tasks'>
           <Switch>
