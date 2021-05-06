@@ -47,6 +47,13 @@ body *{
     min-width: 260px;
 }
 
+nav ul{
+    list-style-type: none;
+}
+nav a{
+    color: rgb(44, 42, 42);
+    text-decoration: none;
+}
 .description {
     color: rgb(98, 105, 165);
     font-size: 90%;
