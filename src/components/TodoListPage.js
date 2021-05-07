@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
+import { loadTasks } from '../store/tasks/actions'
 import NewTaskForm from './NewTaskForm'
 import Task from './Task'
 
 export default function TodoListPage(props) {
+    const dispatch = useDispatch()
     let { id } = useParams()
-    const [tasks, setTasks] = useState([])
+
     useEffect(() => {
-        fetch(`http://localhost:5000/lists/${id}/tasks`)
-            .then(res => res.json())
-            .then(setTasks)
-    }, [id])
+        dispatch(loadTasks(id))
+      }, [id])
+
+    const [tasks__, setTasks] = useState([])
+    const tasks = useSelector(state => state.tasks[id])
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/lists/${id}/tasks`)
+    //         .then(res => res.json())
+    //         .then(setTasks)
+    // }, [id])
     const addTask = (task) => {
-        setTasks([...tasks, task]);
+        setTasks([...tasks__, task]);
         fetch(`http://localhost:5000/lists/${id}/tasks`, {
             method: 'POST',
             headers: {
@@ -22,18 +31,19 @@ export default function TodoListPage(props) {
         })
     }
     const removeTask = (task) => {
-        setTasks(tasks.filter(t => t.itemId !== task.itemId));
+        setTasks(tasks__.filter(t => t.itemId !== task.itemId));
     }
     const setCheckbox = (task, oldtask) => {
-        let list = tasks;
+        let list = tasks__;
         let index = list.indexOf(oldtask);
         list[index] = task;
         setTasks([...list])
     }
+    const getTasks = () => (tasks ? tasks: [])
     return (
         <>
             {
-                tasks.map(task => (<Task key={task.itemId} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
+                getTasks().map(task => (<Task key={task.itemId} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
             }
             <NewTaskForm onSubmit={addTask} />
         </>

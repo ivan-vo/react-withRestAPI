@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import store from '../store';
 
 function dateToString(date) {
     if (date !== '' && date !== null) {
@@ -17,7 +18,6 @@ function setChecked(done) {
 }
 
 export default function Task(props) {
-
     const setDoneTask = (task) => {
         let oldtask = task;
         task.done ? task.done = false : task.done = true;
@@ -28,11 +28,11 @@ export default function Task(props) {
             date = new Date(date);
             var now = new Date();
             if (new Date(now.getFullYear(), now.getMonth(), now.getDate()) > date) {
-                return { className: "not-corect-date" }  
-            } 
+                return { className: "not-corect-date" }
+            }
         }
-        else{
-            return { className: "corect-date" } 
+        else {
+            return { className: "corect-date" }
         }
     }
 
@@ -55,20 +55,34 @@ export default function Task(props) {
     }
 
     const title = props.task.title;
-    
+
     let nameList;
     if (props.today) {
         props.taskLists.forEach(l => {
-            if (l.taskListId === props.task.taskListId) {
+            if (l.id === props.task.taskListId) {
                 nameList = l.name;
             }
         });
+    }
+    const getNameList = (id) => {
+        let name;
+        props.taskLists.forEach(l => {
+            if (l.id === id) {
+                name = l.name
+            }
+        });
+        return name;
     }
 
     return (
         <div className='item'>
             {
-                props.today ? <p key={props.task.taskListId} ><NavLink to={`/todo-lists/${props.task.taskListId}`}>{nameList}</NavLink></p>:<></>
+                props.today &&
+                <p key={props.task.taskListId} >
+                    <NavLink to={`/todo-lists/${props.task.taskListId}`}>
+                        {getNameList(props.task.taskListId)}
+                    </NavLink>
+                </p>
             }
             <p>
                 <input

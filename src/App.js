@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import TodoListPage from './components/TodoListPage';
@@ -8,36 +7,24 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
-import store from './store/index';
-import { useDispatch } from 'react-redux';
-import {loadLists} from './store/dashboard/actions';
+import store from './store/index'
 
-console.log(store.getState());
 function App() {
-
-  const [taskLists, setTaskLists] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/tasklists")
-      .then(res => res.json())
-      .then(setTaskLists);
-  }, [])
-  const dispatch = useDispatch();
-  // dispatch(loadLists())
+  const lists = useSelector(state => state.dashboard.lists)
   
-
   return (
     <div className="App">
       <Router>
-        {/* <Dashboard taskLists={store.getState().dashboard.lists} /> */}
-        <Dashboard taskLists={taskLists} />
+        <Dashboard  />
         <div className='tasks'>
           <Switch>
             <Route path="/todo-lists/:id">
               <TodoListPage />
             </Route>
             <Route path="/today">
-              <TodayTaskPage taskLists={taskLists}/>
+              <TodayTaskPage taskLists={lists}/>
             </Route>
           </Switch>
         </div>
@@ -45,5 +32,4 @@ function App() {
     </div >
   );
 }
-
 export default App;

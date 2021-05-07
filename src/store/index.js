@@ -1,4 +1,6 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
+
 import dashboardReducer from './dashboard/reducer'
 import tasksReducer from './tasks/reducer'
 
@@ -9,6 +11,7 @@ export const rootReducer = combineReducers({
 
 const store = createStore(
     rootReducer,
+    applyMiddleware(thunk)
     )
 
 export default store

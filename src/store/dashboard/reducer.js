@@ -2,11 +2,21 @@ import { combineReducers } from 'redux'
 import { DASHBOARD_LOADED} from './actions'
 
 function openedTasksReducer(state = {}, action) {
-    return state;
+    switch (action.type) {
+        case DASHBOARD_LOADED:
+            let st ={};
+            action.payload.notDoneTasks.forEach(list => {
+                st[list.idList] = list.countNotDoneTask
+            });
+            state = st;
+            return state;
+        default:
+            return state;
+    }
 }
 
 export default combineReducers({
-    today: (today = 0, {type, payload}) => type === DASHBOARD_LOADED ? payload.today : today,
+    today: (numTaskToday = 0, {type, payload}) => type === DASHBOARD_LOADED ? payload.numTaskToday : numTaskToday,
     lists: (lists = [], {type, payload}) => type === DASHBOARD_LOADED ? payload.lists : lists,
     openedTasks: openedTasksReducer
 })
