@@ -4,12 +4,7 @@ import { DASHBOARD_LOADED} from './actions'
 function openedTasksReducer(state = {}, action) {
     switch (action.type) {
         case DASHBOARD_LOADED:
-            let st ={};
-            action.payload.notDoneTasks.forEach(list => {
-                st[list.idList] = list.countNotDoneTask
-            });
-            state = st;
-            return state;
+            return action.payload.notDoneTasks.reduce((o, l) => ({...o, [l.idList] : l.countNotDoneTask}), {})
         default:
             return state;
     }

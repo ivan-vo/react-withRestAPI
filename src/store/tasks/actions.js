@@ -24,14 +24,14 @@ export const loadTodayTasks = () => async (dispatch) => {
             }
         }))
 }
-export const createTask = (listId,task) => async (dispatch) => {
+export const createTask = (listId, task) => async (dispatch) => {
     fetch(`http://localhost:5000/lists/${listId}/tasks`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(task)
-        })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(task)
+    })
         .then(res => res.json())
         .then(task => dispatch({
             type: TASK_CREATED,

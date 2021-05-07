@@ -5,11 +5,6 @@ import Task from './Task'
 
 export default function TodayTaskPage(props) {
     const [tasks__, setTasks] = useState([])
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/collection/today")
-    //         .then(res => res.json())
-    //         .then(setTasks)
-    // }, [])
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -26,12 +21,11 @@ export default function TodayTaskPage(props) {
         list[index] = task;
         setTasks([...list])
     }
-    const getTasks = () => (tasks ? tasks : [])
     return (
         <>
             <h1>TodayTaskPage!!!</h1>
             {
-                getTasks().map(task => (<Task key={task.itemId} taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
+                tasks && tasks.map(task => (<Task key={task.itemId} taskLists={props.taskLists} today={true} setCheckbox={setCheckbox} removeTask={removeTask} task={task}></Task>))
             }
         </>
     )
