@@ -1,5 +1,6 @@
-export const TASKS_LOADED = 'tasks/loaded'
-export const TASK_CREATED = 'task/created'
+export const TASKS_LOADED = 'tasks/loaded';
+export const TASK_CREATED = 'task/created';
+export const TASK_REMOVED = 'task/remuved';
 export const loadTasks = (listId) => async (dispatch) => {
     fetch(`http://localhost:5000/lists/${listId}/tasks`)
         .then(res => res.json())
@@ -41,4 +42,9 @@ export const createTask = (listId, task) => async (dispatch) => {
                 task
             }
         }))
+}
+export const removeTask = (listId,itemId) => {
+    fetch(`http://localhost:5000/lists/${listId}/tasks/${itemId}`, {
+            method: 'DELETE',
+        })
 }

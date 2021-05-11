@@ -1,19 +1,20 @@
 import { combineReducers } from 'redux';
 import { TASKS_LOADED, TASK_CREATED } from './actions';
 
-export default function loadList (state = [], action) {
+export default function loadList (state = {}, action) {
     switch (action.type) {
         case TASKS_LOADED:
-            var st = {}
-            st[action.payload.listId] = action.payload.tasks;
-            state = st;
-            return state;
+            const { listId, tasks } = action.payload;
+            return {
+                ...state,
+                [listId] : tasks
+            }
         case TASK_CREATED:
-            state[action.payload.listId] = [
-                ...state[action.payload.listId],
-                action.payload.task
-            ]
-            return state;
+            const { listId, task } = action.payload
+            return {
+                ...state,
+                [listId]: [...state[listId], task]
+            }
         default:
             return state
     }

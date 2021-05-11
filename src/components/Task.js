@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import store from '../store';
 
@@ -18,6 +19,9 @@ function setChecked(done) {
 }
 
 export default function Task(props) {
+    console.log(store.getState());
+    const dispatch = useDispatch()
+
     const setDoneTask = (task) => {
         let oldtask = task;
         task.done ? task.done = false : task.done = true;
@@ -37,9 +41,10 @@ export default function Task(props) {
     }
 
     const removeTask = (task) => {
-        fetch(`http://localhost:5000/lists/${task.taskListId}/tasks/${task.itemId}`, {
-            method: 'DELETE',
-        })
+        // fetch(`http://localhost:5000/lists/${task.taskListId}/tasks/${task.itemId}`, {
+        //     method: 'DELETE',
+        // })
+        dispatch(removeTask(task.taskListId,task.itemId))
         props.removeTask(task)
     }
 
