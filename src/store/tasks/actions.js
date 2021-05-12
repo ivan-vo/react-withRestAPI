@@ -1,6 +1,8 @@
 export const TASKS_LOADED = 'tasks/loaded';
 export const TASK_CREATED = 'task/created';
-export const TASK_REMOVED = 'task/remuved';
+export const TASK_REMOVED = 'task/removed';
+export const TASK_STATUS_UPDATED = 'task/updata';
+
 export const loadTasks = (listId) => async (dispatch) => {
     fetch(`http://localhost:5000/lists/${listId}/tasks`)
         .then(res => res.json())
@@ -25,7 +27,7 @@ export const loadTodayTasks = () => async (dispatch) => {
             }
         }))
 }
-export const createTask = (listId, task) => async (dispatch) => {
+export const createTask = (listId, task) => dispatch => {
     fetch(`http://localhost:5000/lists/${listId}/tasks`, {
         method: 'POST',
         headers: {
@@ -43,8 +45,17 @@ export const createTask = (listId, task) => async (dispatch) => {
             }
         }))
 }
-export const removeTask = (listId,itemId) => {
+export const removeTask = (listId,itemId) => dispatch => {
     fetch(`http://localhost:5000/lists/${listId}/tasks/${itemId}`, {
             method: 'DELETE',
         })
+        .then(res => res.json())
+        .then((task) => dispatch({
+            type:TASK_REMOVED, 
+            payload: 
+            {
+                listId,
+                itemId,
+                task
+            }}))
 }
