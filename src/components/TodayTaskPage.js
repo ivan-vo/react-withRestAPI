@@ -12,15 +12,12 @@ export default function TodayTaskPage(props) {
     }, [])
     const tasks = useSelector(state => state.tasks['today'])
 
-    const removeTask = (task) => {
-        setTasks(tasks__.filter(t => t.itemId !== task.itemId));
-    }
-    const setCheckbox = (task, oldtask) => {
-        let list = tasks__;
-        let index = list.indexOf(oldtask);
-        list[index] = task;
-        setTasks([...list])
-    }
+    // const setCheckbox = (task, oldtask) => {
+    //     let list = tasks__;
+    //     let index = list.indexOf(oldtask);
+    //     list[index] = task;
+    //     setTasks([...list])
+    // }
     return (
         <>
             <h1>TodayTaskPage!!!</h1>

@@ -19,7 +19,7 @@ export default function loadList (state = {}, action) {
             const { listId, itemId } = action.payload
             return state.filter(task => task.id !== itemId)
         case TASK_STATUS_UPDATED:
-            return {}
+            return 
         default:
             return state
     }

@@ -41,11 +41,7 @@ export default function Task(props) {
     }
 
     const removeTask = (task) => {
-        // fetch(`http://localhost:5000/lists/${task.taskListId}/tasks/${task.itemId}`, {
-        //     method: 'DELETE',
-        // })
         dispatch(removeTask(task.taskListId,task.itemId))
-        props.removeTask(task)
     }
 
     async function replaceTask(oldtask, task) {

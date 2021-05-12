@@ -21,8 +21,7 @@ export default function TodoListPage(props) {
         dispatch(createTask(id,task))       
     }
     const removeTask = (task) => {
-        // setTasks(tasks__.filter(t => t.itemId !== task.itemId));
-        dispatch(removeTask(id,task.id))
+        setTasks(tasks__.filter(t => t.itemId !== task.itemId));
     }
     const setCheckbox = (task, oldtask) => {
         let list = tasks__;
