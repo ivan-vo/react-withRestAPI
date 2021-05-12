@@ -16,25 +16,13 @@ export default function TodoListPage(props) {
 
     const [tasks__, setTasks] = useState([])
     const tasks = useSelector(state => state.tasks[id])
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/lists/${id}/tasks`)
-    //         .then(res => res.json())
-    //         .then(setTasks)
-    // }, [id])
 
     const addTask = (task) => {
-        // setTasks([...tasks__, task]);
-        // fetch(`http://localhost:5000/lists/${id}/tasks`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: JSON.stringify(task)
-        // })
         dispatch(createTask(id,task))       
     }
     const removeTask = (task) => {
-        setTasks(tasks__.filter(t => t.itemId !== task.itemId));
+        // setTasks(tasks__.filter(t => t.itemId !== task.itemId));
+        dispatch(removeTask(id,task.id))
     }
     const setCheckbox = (task, oldtask) => {
         let list = tasks__;
